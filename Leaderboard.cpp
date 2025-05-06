@@ -51,6 +51,7 @@ RankingResult Offline::heapRank(std::vector<Player>& players){
     return RankingResult(top_, cutoffs_, elapsed_);
 }
 
+//Lomuto partition function
 int Offline::partition(std::vector<Player>& players, int low, int high){
     Player pivot =  players[high];//pivot is the last element
     int i = low - 1; //index of rightmost element < pivot
@@ -71,15 +72,16 @@ void Offline::quickSelect(std::vector<Player>& players, int left, int right, int
     while(left <= right){
         int pivotIndex = partition(players, left, right);
 
-        //pivot is at the cutoff for top ten percent
+        //pivot is at the cutoff for top ten percent, we're done
         if(pivotIndex == cutoffIndex){
             return;
         }
-        //top ten percent is on the left side of pivot
+        //if pivot is too far right, top 10 percent in on left
         else if(pivotIndex > cutoffIndex){
             right = pivotIndex - 1;
         }
-        else{
+        //pivot is too far left, move to right sublist
+        else{   
             left = pivotIndex + 1;
         }
     }
@@ -87,14 +89,18 @@ void Offline::quickSelect(std::vector<Player>& players, int left, int right, int
 
 void Offline::quickSort(std::vector<Player>& players, int low, int high){
     if(low < high){
+        //get partition's final position
         int part = partition(players, low, high);
+        //sort the right side
         quickSort(players, low, part - 1);
+        //sort the left side
         quickSort(players, part + 1, high);
     }
 }
 
 RankingResult Offline::quickSelectRank(std::vector<Player>& players){
     auto start = std::chrono::high_resolution_clock::now();
+
     size_t tenPer = std::floor(0.1 * players.size());
     size_t cutoffIndex = players.size() - tenPer;   //start at top ten percent
 
