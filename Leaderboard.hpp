@@ -84,6 +84,15 @@ RankingResult quickSelectRank(std::vector<Player>& players);
  * @post The order of the parameter vector is modified.
  */
 RankingResult heapRank(std::vector<Player>& players);
+
+//Partition Helper Function
+int partition(std::vector<Player>& players, int low, int high);
+
+//Quick select Helper function
+void quickSelect(std::vector<Player>& players, int left, int right, int cutoffIndex);
+
+//Quick Sort helper function
+void quickSort(std::vector<Player>& players, int low, int high);
 };
 
 namespace Online {
