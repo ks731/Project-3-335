@@ -106,8 +106,8 @@ RankingResult Offline::quickSelectRank(std::vector<Player>& players){
     quickSelect(players, 0, players.size() - 1, cutoffIndex);
 
     //sort the top ten percent 
-    quickSort(players, cutoffIndex, players.size() - 1);
-
+    //quickSort(players, cutoffIndex, players.size() - 1);
+    std::sort(players.begin() + cutoffIndex, players.end());
     auto end = std::chrono::high_resolution_clock::now();
     double elapsed = std::chrono::duration<double, std::milli>(end - start).count();
 
