@@ -100,7 +100,7 @@ RankingResult Offline::quickSelectRank(std::vector<Player>& players){
     auto start = std::chrono::high_resolution_clock::now();
 
     size_t tenPer = std::floor(0.1 * players.size());
-    size_t cutoffIndex = tenPer -1;   //start at top ten percent
+    size_t cutoffIndex = players.size() - tenPer;   //start at top ten percent
 
     //select top ten percent using quickselect
     quickSelect(players, 0, players.size() - 1, cutoffIndex);
