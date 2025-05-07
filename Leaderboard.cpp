@@ -56,7 +56,7 @@ int Offline::partition(std::vector<Player>& players, int low, int high){
 
     for(int it = low; it <=high - 1; it++){
         //compare player levels
-        if(players[it].level_ >= pivot.level_){
+        if(players[it].level_ <= pivot.level_){
             i++;
             std::swap(players[i], players[it]);
 
